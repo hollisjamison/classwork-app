@@ -5,7 +5,7 @@ const logger = require('morgan');
 
 const buildPath = path.join(__dirname, 'client', 'build')
 
-const apiRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 
 const app = express();
 
