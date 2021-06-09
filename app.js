@@ -1,50 +1,26 @@
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv')
 const expressSession = require('express-session')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const passport = require('passport');
-const GitHubStrategy = require('passport-github');
+const passportSetup = require("./config/passport-setup");
 const apiRouter = require('./routes/api-route');
 const authRouter = require('./routes/auth-route');
 
 const app = express();
 
 // Load env variables and set variables
-require('dotenv').config()
 const port = process.env.PORT || '3001'
 const sessionSecret = process.env.SESSION_SECRET
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const callbackURL = process.env.CALLBACK_URL;
 const mongoUrl = process.env.MONGO_URL;
 const buildPath = path.join(__dirname, 'client', 'build');
-const User = require('./models/users-model')
 
 // connect to mongodb
 mongoose.connect(mongoUrl, () => {
   console.log('connected to mongo db');
 });
-
-// Passport Strategy
-passport.use(new GitHubStrategy({
-  clientID: clientId,
-  clientSecret: clientSecret,
-  callbackURL: callbackURL
-},
-  async (accessToken, refreshToken, profile, cb) => {
-    const currentUser = await User.findOne({
-      githubId: profile.id
-    })
-
-    if(!currentUser){
-      const newUser = await new User({
-        githubId: profile.id
-      }).save();
-    }
-  }
-));
 
 const authCheck = (req, res, next) => {
   if (!req.user) {

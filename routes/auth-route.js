@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const passport = require('passport');
-const homepage = process.env.HOMEPAGE_URL;
 
 router.get('/login/success', (req, res) => {
   if (req.user) {
@@ -30,9 +29,11 @@ router.get('/login', passport.authenticate('github'))
 router.get(
   '/login/redirect',
   passport.authenticate('github', {
-    successRedirect: homepage,
     failureRedirect: '/auth/login/failed',
-  })
+  }),
+  (req, res) => {
+    res.redirect('/')
+  }
 );
 
 module.exports = router;
