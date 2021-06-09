@@ -21,7 +21,7 @@ router.get('/login/failed', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect(homepage);
+  res.redirect('/');
 });
 
 router.get('/login', passport.authenticate('github'))

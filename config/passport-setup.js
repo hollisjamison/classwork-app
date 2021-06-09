@@ -6,7 +6,7 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const callbackURL = process.env.CALLBACK_URL;
 
-// deserialize the cookieUserId to user in the database
+// Deserialize the cookieUserId to user in the database
 passport.serializeUser((user, cb) => {
   cb(null, user.id);
 });
@@ -30,6 +30,7 @@ passport.use(
       callbackURL: callbackURL,
     },
     async (accessToken, refreshToken, profile, cb) => {
+      console.log(profile)
       const currentUser = await User.findOne({
         githubId: profile.id,
       });
