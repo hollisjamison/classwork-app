@@ -12,9 +12,8 @@ tasks:
       cd client
       npm install
       cd ..
-      mkdir -p /workspace/data
       rm .npm-lock
-    command: mongod --dbpath /workspace/data
+  - command: mkdir -p /workspace/data && mongod --dbpath /workspace/data
   - init: sleep 1 && while [ -f .npm-lock ]; do sleep 1; done
     command: npm run dev
 github:
