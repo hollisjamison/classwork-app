@@ -6,6 +6,7 @@ ports:
 - port: 3000
   onOpen: open-preview
 tasks:
+  - init: mkdir -p /workspace/data && mongod --dbpath /workspace/data
   - init: |
       touch .npm-lock
       npm install
@@ -15,6 +16,7 @@ tasks:
       rm .npm-lock
   - init: sleep 1 && while [ -f .npm-lock ]; do sleep 1; done
     command: npm run dev
+  
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
