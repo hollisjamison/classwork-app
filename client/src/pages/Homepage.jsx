@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../components/Header";
 
-const Homepage = () => {
-  let [auth, setAuth] = useState(false);
+const Homepage = (props) => {
   let [user, setUser] = useState({});
   let [error, setError] = useState("");
 
-  const handleNotAuthenticated = () => {
-    setAuth(false);
-  };
+  let { auth, setAuth } = props
 
   useEffect(() => {
     axios
@@ -43,11 +39,7 @@ const Homepage = () => {
   }, [user]);
 
   return (
-    <div>
-      <Header
-        authenticated={auth}
-        handleNotAuthenticated={handleNotAuthenticated}
-      />
+    <div className="homepage">
       {!auth ? (
         <h1>You are not authenticated</h1>
       ) : (
