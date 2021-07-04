@@ -14,12 +14,17 @@ const app = express();
 // Load env variables and set variables
 const port = process.env.PORT || '3001'
 const sessionSecret = process.env.SESSION_SECRET
-const mongoUrl = process.env.MONGO_URL;
+const { MONGO_URL, MONGO_USER, MONGO_PASS } = process.env
 const buildPath = path.join(__dirname, 'client', 'build');
 
 // connect to mongodb
-mongoose.connect(mongoUrl, () => {
-  console.log('connected to mongo db');
+mongoose.connect(MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true, auth: { user: MONGO_USER, password: MONGO_PASS } }, () => {
+})
+
+mongoose.connection.once('open',function () {
+  console.log(`Mongo Connected @ ${MONGO_URL}`);
+}).on('error',function (error) {
+  console.log('CONNECTION ERROR:',error);
 });
 
 const authCheck = (req, res, next) => {
