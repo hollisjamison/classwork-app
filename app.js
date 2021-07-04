@@ -85,15 +85,6 @@ app.use(express.static(buildPath));
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
 
-// app.get('/', authCheck, (req, res) => {
-//   res.status(200).json({
-//     authenticated: true,
-//     message: 'user successfully authenticated',
-//     user: req.user,
-//     cookies: req.cookies
-//   });
-// });
-
 app.get("*", (req, res) => {
   res.sendFile(path.join(buildPath + "/index.html"));
 });

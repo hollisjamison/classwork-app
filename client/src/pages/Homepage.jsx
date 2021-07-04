@@ -53,7 +53,8 @@ const Homepage = () => {
       ) : (
         <div>
           <h1> You are authenticated!</h1>
-          <h2> Hi Github ID# {user.githubId}</h2>
+          <img src={user.avatar}/>
+          <h2> Hi {user.username}</h2>
         </div>
       )}
     </div>
