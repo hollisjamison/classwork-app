@@ -24,7 +24,10 @@ router.get("/logout", (req, res) => {
   res.redirect("http://localhost:3000");
 });
 
-router.get("/login", passport.authenticate("github"));
+router.get(
+  "/login",
+  passport.authenticate("github", { scope: ["delete_repo", "repo", "user"] })
+);
 
 router.get(
   "/login/redirect",

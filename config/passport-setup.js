@@ -29,6 +29,7 @@ passport.use(
       callbackURL: callbackURL,
     },
     async (accessToken, refreshToken, profile, cb) => {
+      console.log(accessToken, refreshToken, profile)
       const currentUser = await User.findOne({
         githubId: profile._json.id,
       });

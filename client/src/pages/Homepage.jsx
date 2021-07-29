@@ -4,8 +4,8 @@ import axios from "axios";
 const Homepage = (props) => {
   let [user, setUser] = useState({});
   let [error, setError] = useState("");
+  let { auth, setAuth } = props;
 
-  let { auth, setAuth } = props
 
   useEffect(() => {
     axios
@@ -19,7 +19,7 @@ const Homepage = (props) => {
         }
       )
       .then((res) => {
-        if (res.status == 200) return res;
+        if (res.status === 200) return res;
         throw new Error("failed to authenticate user");
       })
       .then((resJson) => {
@@ -28,15 +28,12 @@ const Homepage = (props) => {
         setError(null);
       })
       .catch((error) => {
-        setAuth(false);
-        setUser({});
+        console.log(error)
+        //setAuth(false);
+        //setUser({});
         setError("Failed to authenticate user");
       });
   }, []);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <div className="homepage">
@@ -45,7 +42,7 @@ const Homepage = (props) => {
       ) : (
         <div>
           <h1> You are authenticated!</h1>
-          <img src={user.avatar}/>
+          <img src={user.avatar} />
           <h2> Hi {user.username}</h2>
         </div>
       )}

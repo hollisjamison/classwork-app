@@ -18,7 +18,9 @@ const AppRouter = () => {
         handleNotAuthenticated={handleNotAuthenticated}
       />
       <div className="router">
-        <Route exact path="/" auth={auth} setAuth={setAuth} component={Homepage} />
+        <Route exact path="/">
+          <Homepage auth={auth} setAuth={setAuth}/>
+        </Route>
         <Route exact path="/repos" component={Repos} />
       </div>
     </Router>
